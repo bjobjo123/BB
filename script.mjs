@@ -27,9 +27,19 @@ function getQuote (req, res, next) {
     res.status(HTTP_CODES.SUCCESS.OK).send(quotes[Math.floor(a.length * Math.random())]).end();
 }
 
+function postSum (req, res, next) { 
+
+const sum = {a,b} = req.params;
+const sumert =sum[1] + sum[2];
+
+res.status(HTTP_CODES.SUCCESS.OK).send({ sumert }).end();
+}
+
+
 server.get("/", getRoot);
 server.get("/tmp/poem", getPoem);
 server.get("/tmp/quotes", getQuote);
+server.post("/tmp/sum/a/b",postSum );
 
 
 server.listen(server.get('port'), function () {
