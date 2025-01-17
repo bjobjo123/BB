@@ -11,11 +11,13 @@ function getRoot(req, res, next) {
     res.status(HTTP_CODES.SUCCESS.OK).send('Hello World').end();
 }
 
-app.get('/tmp/poem', function (req, res) {
-    res.send("Hører du fjellene Det er fjellene som står der Hører du dem? Det er stillheten du hører.")
-  })
+function getPoem(req, res, next) {
+    const poem = "roser er røde, fioler er blå. og noe mer kommer her å ";
+    res.status(HTTP_CODES.SUCCESS.OK).send(poem).end();
+}
 
 server.get("/", getRoot);
+server.get("/tmp/poem", getPoem);
 
 server.listen(server.get('port'), function () {
     console.log('server running', server.get('port'));
