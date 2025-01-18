@@ -31,22 +31,18 @@ res.status(HTTP_CODES.SUCCESS.OK).send(aRandomQuote).end();
 }
 
 function postSum(req, res, next) {  
-    const { a, b } = req.params;
-
-
-    const numberA = parseFloat(a);
-
-    const numberB = parseFloat(b);
+    const numberA = 5;
+    const numberB = 10;
 
     const sum = numberA + numberB;
-    res.status(HTTP_CODES.SUCCESS.OK).send({sum}).end();
+    res.status(HTTP_CODES.SUCCESS.OK).send({ sum }).end();
 }
     
 
 server.get("/", getRoot);
 server.get("/tmp/poem", getPoem);
 server.get("/tmp/quotes", getQuote);
-server.post("/tmp/sum/a/b", postSum);
+server.post("/tmp/sum/:a/:b", postSum);
 
 
 server.listen(server.get('port'), function () {
