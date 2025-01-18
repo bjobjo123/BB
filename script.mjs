@@ -41,12 +41,12 @@ function postSum(req, res, next) {
     const sum = numberA + numberB;
     res.status(HTTP_CODES.SUCCESS.OK).send({sum}).end();
 }
-
+    
 
 server.get("/", getRoot);
 server.get("/tmp/poem", getPoem);
 server.get("/tmp/quotes", getQuote);
-server.post("/tmp/sum/a/b",postSum );
+server.post("/tmp/sum/a/b", postSum);
 
 
 server.listen(server.get('port'), function () {
