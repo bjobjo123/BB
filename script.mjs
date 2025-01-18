@@ -24,16 +24,22 @@ function getQuote (req, res, next) {
         "You must be the change you wish to see in the world. -Mahatma Gandhi",
         "In this life we cannot do great things. We can only do small things with great love. -Mother Teresa",
         "Many of life's failures are people who did not realize how close they were to success when they gave up. -Thomas A. Edison"
-    ]
-    res.status(HTTP_CODES.SUCCESS.OK).send(quotes[Math.floor(a.length * Math.random())]).end();
+    ];
+
+const aRandomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+res.status(HTTP_CODES.SUCCESS.OK).send(aRandomQuote).end();
 }
 
-function postSum (req, res, next) { 
+function postSum(req, res, next) {  
+    const { a, b } = req.params;
 
-const sum = {a,b} = req.params;
-const sumert =sum[1] + sum[2];
 
-res.status(HTTP_CODES.SUCCESS.OK).send({ sumert }).end();
+    const numberA = parseFloat(a);
+
+    const numberB = parseFloat(b);
+
+    const sum = numberA + numberB;
+    res.status(HTTP_CODES.SUCCESS.OK).send({sum}).end();
 }
 
 
