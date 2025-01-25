@@ -18,8 +18,10 @@ app.post('/temp/deck', (req, res) => {
 
 app.patch('/temp/deck/shuffle/:deck_id', (req, res) => {
     const { deck_id } = req.params;
+    console.log(`Received deck_id: ${deck_id}`);
     const deck = decks[deck_id];
     if (!deck) {
+        console.log(`Deck not found for deck_id: ${deck_id}`);
         return res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send('Deck not found').end();
     }
     shuffleDeck(deck);
