@@ -8,6 +8,7 @@ const port = process.env.PORT || 8000;
 let decks = {};
 
 app.use(express.json());
+app.use(express.static('public'));
 
 app.post('/temp/deck', (req, res) => {
     const deckId = uuidv4();
@@ -18,10 +19,8 @@ app.post('/temp/deck', (req, res) => {
 
 app.patch('/temp/deck/shuffle/:deck_id', (req, res) => {
     const { deck_id } = req.params;
-    console.log(`Received deck_id: ${deck_id}`);
     const deck = decks[deck_id];
     if (!deck) {
-        console.log(`Deck not found for deck_id: ${deck_id}`);
         return res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send('Deck not found').end();
     }
     shuffleDeck(deck);
@@ -43,15 +42,15 @@ app.get('/temp/deck/:deck_id/card', (req, res) => {
     if (!deck) {
         return res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send('Deck not found').end();
     }
-    if (deck.length === 0) {
+    const card = drawCard(deck);
+    if (!card) {
         return res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send('No more cards in the deck').end();
     }
-    const card = deck.pop();
     res.status(HTTP_CODES.SUCCESS.OK).send(card).end();
 });
 
 function createDeck() {
-    const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
+    const suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
     const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
     const deck = [];
     for (const suit of suits) {
@@ -69,7 +68,10 @@ function shuffleDeck(deck) {
     }
 }
 
+function drawCard(deck) {
+    return deck.pop();
+}
 
 app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+    console.log(`Server running on port: ${port}`);
 });
